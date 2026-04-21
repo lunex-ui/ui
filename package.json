@@ -1,0 +1,12 @@
+{
+  "name": "lunex-ui",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter @lunex-ui/react dev",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  }
+}
