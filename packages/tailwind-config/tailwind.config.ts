@@ -5,28 +5,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        border: "hsl(214 32% 91%)",
-        input: "hsl(214 32% 91%)",
-        ring: "hsl(221 83% 53%)",
-        background: "hsl(0 0% 100%)",
-        foreground: "hsl(222 47% 11%)",
-        primary: {
-          DEFAULT: "hsl(221 83% 53%)",
-          foreground: "hsl(210 40% 98%)"
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
+        focus: "hsl(var(--focus))",
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+          soft: "hsl(var(--brand-soft))",
+          "soft-foreground": "hsl(var(--brand-soft-foreground))"
         },
-        secondary: {
-          DEFAULT: "hsl(210 40% 96%)",
-          foreground: "hsl(222 47% 11%)"
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          foreground: "hsl(var(--surface-foreground))"
         },
         muted: {
-          DEFAULT: "hsl(210 40% 96%)",
-          foreground: "hsl(215 16% 47%)"
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))"
+        },
+        field: {
+          DEFAULT: "hsl(var(--field))",
+          foreground: "hsl(var(--field-foreground))",
+          placeholder: "hsl(var(--field-placeholder))",
+          border: "hsl(var(--field-border))"
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))"
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))"
+        },
+        danger: {
+          DEFAULT: "hsl(var(--danger))",
+          foreground: "hsl(var(--danger-foreground))"
         }
       },
       borderRadius: {
-        lg: "0.75rem",
-        md: "0.5rem",
-        sm: "0.375rem"
+        lg: "var(--radius-lg)",
+        md: "var(--radius-md)",
+        sm: "var(--radius-sm)"
       }
     }
   },

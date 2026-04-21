@@ -5,7 +5,8 @@
   "packageManager": "pnpm@10.18.0",
   "scripts": {
     "build": "pnpm -r build",
-    "dev": "pnpm --filter @lunex-ui/react dev",
+    "dev": "pnpm --parallel --filter @lunex-ui/react --filter @lunex-ui/playground dev",
+    "dev:playground-nextjs": "pnpm --filter @lunex-ui/playground dev",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck"
   }
