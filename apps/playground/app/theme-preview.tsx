@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { Button } from "@lunex-ui/react";
 
 const colorPresets = ["blue", "red", "black", "natural"] as const;
-const radiusPresets = ["compact", "balanced", "soft", "rounded"] as const;
+const radiusPresets = ["sharp", "soft", "rounded"] as const;
 
 type ColorPreset = (typeof colorPresets)[number];
 type RadiusPreset = (typeof radiusPresets)[number];
 
 export function ThemePreview() {
   const [colorPreset, setColorPreset] = useState<ColorPreset>("blue");
-  const [radiusPreset, setRadiusPreset] = useState<RadiusPreset>("balanced");
+  const [radiusPreset, setRadiusPreset] = useState<RadiusPreset>("soft");
 
   useEffect(() => {
     document.documentElement.dataset.colorPreset = colorPreset;
