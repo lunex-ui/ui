@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Button } from "@lunex-ui/react";
+import { Button, Input } from "@lunex-ui/react";
 import {
   defaultPresetState,
   getPresetOption,
@@ -150,6 +150,32 @@ export function ThemePreview() {
               </Button>
               <Button disabled>Disabled</Button>
               <Button selected>Selected</Button>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Input states</p>
+              <p className="text-sm text-muted-foreground">
+                Foundational field styles, invalid states, and adornments under
+                the active theme.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Input placeholder="Default input" />
+              <Input
+                variant="surface"
+                placeholder="Surface input"
+                startContent={<span aria-hidden="true">@</span>}
+              />
+              <Input
+                invalid
+                defaultValue="wrong@email"
+                endContent={<span aria-hidden="true">!</span>}
+              />
+              <Input disabled placeholder="Disabled input" />
+              <Input size="sm" placeholder="Small input" />
+              <Input size="lg" placeholder="Large input" />
             </div>
           </div>
         </div>
