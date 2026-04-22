@@ -34,15 +34,16 @@ export function ThemePreview() {
         <div className="space-y-8">
           <div className="space-y-6">
             <span className="inline-flex items-center rounded-full bg-brand-soft px-3 py-1 text-sm font-medium text-brand-soft-foreground">
-              Lunex UI Playground
+              Theme-first preview
             </span>
             <div className="space-y-3">
               <h1 className="text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
-                Build your components and tune the theme live.
+                Build a branded interface, not a generic one.
               </h1>
               <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-                Switch the palette and radius presets to preview how Lunex UI
-                components react in real time.
+                Lunex UI is a theme-first component system. Switch the palette
+                and radius presets to see how the same primitives adapt to a
+                different product feel in real time.
               </p>
             </div>
           </div>
@@ -99,7 +100,7 @@ export function ThemePreview() {
 
         <div className="space-y-4 rounded-[1.5rem] border border-border bg-foreground p-6 text-background">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">
-            Theme state
+            System snapshot
           </p>
           <div className="grid gap-4">
             <div className="rounded-2xl bg-white/5 p-4">
@@ -111,8 +112,10 @@ export function ThemePreview() {
               <p className="mt-2 text-lg font-medium capitalize">{radiusPreset}</p>
             </div>
             <div className="rounded-2xl bg-white/5 p-4">
-              <p className="text-sm text-white/60">Previewed package</p>
-              <p className="mt-2 text-lg font-medium">@lunex-ui/react</p>
+              <p className="text-sm text-white/60">Lunex promise</p>
+              <p className="mt-2 text-lg font-medium">
+                Branded UI, faster
+              </p>
             </div>
           </div>
         </div>
