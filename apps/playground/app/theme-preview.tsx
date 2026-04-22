@@ -3,30 +3,48 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@lunex-ui/react";
-
-const colorPresets = ["blue", "red", "black", "natural"] as const;
-const radiusPresets = ["sharp", "soft", "rounded"] as const;
-
-type ColorPreset = (typeof colorPresets)[number];
-type RadiusPreset = (typeof radiusPresets)[number];
+import {
+  defaultPresetState,
+  getPresetOption,
+  presetConfig,
+  type ActivePresetState,
+  type PresetCategory
+} from "./theme-presets";
 
 export function ThemePreview() {
-  const [colorPreset, setColorPreset] = useState<ColorPreset>("blue");
-  const [radiusPreset, setRadiusPreset] = useState<RadiusPreset>("soft");
+  const [activePresets, setActivePresets] =
+    useState<ActivePresetState>(defaultPresetState);
 
   useEffect(() => {
-    document.documentElement.dataset.colorPreset = colorPreset;
-    return () => {
-      delete document.documentElement.dataset.colorPreset;
-    };
-  }, [colorPreset]);
+    const root = document.documentElement;
+    const entries = Object.entries(presetConfig) as [
+      PresetCategory,
+      (typeof presetConfig)[PresetCategory]
+    ][];
 
-  useEffect(() => {
-    document.documentElement.dataset.radiusPreset = radiusPreset;
+    for (const [category, config] of entries) {
+      root.dataset[config.datasetKey] = activePresets[category];
+    }
+
     return () => {
-      delete document.documentElement.dataset.radiusPreset;
+      for (const [, config] of entries) {
+        delete root.dataset[config.datasetKey];
+      }
     };
-  }, [radiusPreset]);
+  }, [activePresets]);
+
+  function setPreset<TCategory extends PresetCategory>(
+    category: TCategory,
+    value: ActivePresetState[TCategory]
+  ) {
+    setActivePresets((current) => ({
+      ...current,
+      [category]: value
+    }));
+  }
+
+  const activeColorPreset = getPresetOption("color", activePresets.color);
+  const activeRadiusPreset = getPresetOption("radius", activePresets.radius);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-16">
@@ -49,45 +67,36 @@ export function ThemePreview() {
           </div>
 
           <div className="grid gap-6 rounded-lg border border-border bg-background p-6 md:grid-cols-2">
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-foreground">Color preset</p>
-              <div className="flex flex-wrap gap-3">
-                {colorPresets.map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => setColorPreset(preset)}
-                    className={`rounded-md border px-3 py-2 text-sm capitalize transition-colors ${
-                      colorPreset === preset
-                        ? "border-brand bg-brand text-brand-foreground"
-                        : "border-border bg-background text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {preset}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {(Object.entries(presetConfig) as [
+              PresetCategory,
+              (typeof presetConfig)[PresetCategory]
+            ][]).map(([category, config]) => (
+              <div key={category} className="space-y-3">
+                <p className="text-sm font-medium text-foreground">
+                  {config.label}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {config.options.map((option) => {
+                    const isActive = activePresets[category] === option.value;
 
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-foreground">Radius preset</p>
-              <div className="flex flex-wrap gap-3">
-                {radiusPresets.map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => setRadiusPreset(preset)}
-                    className={`rounded-md border px-3 py-2 text-sm capitalize transition-colors ${
-                      radiusPreset === preset
-                        ? "border-brand bg-brand text-brand-foreground"
-                        : "border-border bg-background text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {preset}
-                  </button>
-                ))}
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setPreset(category, option.value)}
+                        className={`rounded-md border px-3 py-2 text-sm transition-colors ${
+                          isActive
+                            ? "border-brand bg-brand text-brand-foreground"
+                            : "border-border bg-background text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-4">
@@ -105,11 +114,21 @@ export function ThemePreview() {
           <div className="grid gap-4">
             <div className="rounded-2xl bg-white/5 p-4">
               <p className="text-sm text-white/60">Active color preset</p>
-              <p className="mt-2 text-lg font-medium capitalize">{colorPreset}</p>
+              <p className="mt-2 text-lg font-medium">
+                {activeColorPreset?.label}
+              </p>
+              <p className="mt-1 text-sm text-white/60">
+                {activeColorPreset?.description}
+              </p>
             </div>
             <div className="rounded-2xl bg-white/5 p-4">
               <p className="text-sm text-white/60">Active radius preset</p>
-              <p className="mt-2 text-lg font-medium capitalize">{radiusPreset}</p>
+              <p className="mt-2 text-lg font-medium">
+                {activeRadiusPreset?.label}
+              </p>
+              <p className="mt-1 text-sm text-white/60">
+                {activeRadiusPreset?.description}
+              </p>
             </div>
             <div className="rounded-2xl bg-white/5 p-4">
               <p className="text-sm text-white/60">Lunex promise</p>
