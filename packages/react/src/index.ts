@@ -22,6 +22,11 @@ export {
   DialogTrigger
 } from "./components/dialog";
 export { Input, inputWrapperVariants, type InputProps } from "./components/input";
+export {
+  Select,
+  selectWrapperVariants,
+  type SelectProps
+} from "./components/select";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
 export {
   Textarea,
