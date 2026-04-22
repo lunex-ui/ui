@@ -5,7 +5,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Lunex UI Playground",
-  description: "Playground for testing Lunex UI components."
+  description:
+    "Preview Lunex UI components, tokens, and theme presets in a live playground."
 };
 
 export default function RootLayout({
