@@ -2,7 +2,18 @@
 
 import { useEffect, useState } from "react";
 
-import { Button, Input } from "@lunex-ui/react";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Input,
+  Textarea
+} from "@lunex-ui/react";
 import {
   defaultPresetState,
   getPresetOption,
@@ -176,6 +187,103 @@ export function ThemePreview() {
               <Input disabled placeholder="Disabled input" />
               <Input size="sm" placeholder="Small input" />
               <Input size="lg" placeholder="Large input" />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">
+                Textarea states
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Multi-line field styles under the same token and state system.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Textarea placeholder="Default textarea" />
+              <Textarea
+                variant="surface"
+                placeholder="Surface textarea"
+                defaultValue="A longer field for product notes and copy blocks."
+              />
+              <Textarea invalid defaultValue="This state needs attention." />
+              <Textarea disabled placeholder="Disabled textarea" />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Badges</p>
+              <p className="text-sm text-muted-foreground">
+                Lightweight status and label chips for metadata and system
+                states.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Badge>Default</Badge>
+              <Badge variant="surface">Surface</Badge>
+              <Badge variant="outline">Outline</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="warning">Warning</Badge>
+              <Badge variant="danger">Danger</Badge>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Cards</p>
+              <p className="text-sm text-muted-foreground">
+                Content containers for summaries, settings, and dashboard
+                surfaces.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Starter card</CardTitle>
+                  <CardDescription>
+                    Use Cards to group related content and actions.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    This card uses the default surface and spacing tokens from
+                    Lunex.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button size="sm">Open</Button>
+                </CardFooter>
+              </Card>
+              <Card variant="surface" radius="soft">
+                <CardHeader>
+                  <CardTitle>Surface card</CardTitle>
+                  <CardDescription>
+                    A softer content container for layered layouts.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-2">
+                  <Badge variant="success">Live</Badge>
+                  <Badge variant="outline">Beta</Badge>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="secondary" size="sm">
+                    Manage
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card radius="sharp" padding="sm">
+                <CardHeader>
+                  <CardTitle>Sharp</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card radius="soft" padding="sm">
+                <CardHeader>
+                  <CardTitle>Soft</CardTitle>
+                </CardHeader>
+              </Card>
             </div>
           </div>
         </div>
