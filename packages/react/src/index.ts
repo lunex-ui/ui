@@ -29,10 +29,16 @@ export {
 export { Input, inputWrapperVariants, type InputProps } from "./components/input";
 export { Label, labelVariants, type LabelProps } from "./components/label";
 export {
+  OtpInput,
+  otpInputVariants,
+  type OtpInputProps
+} from "./components/otp-input";
+export {
   Select,
   selectWrapperVariants,
   type SelectProps
 } from "./components/select";
+export { Slider, sliderVariants, type SliderProps } from "./components/slider";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
 export {
   Textarea,
