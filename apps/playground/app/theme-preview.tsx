@@ -11,7 +11,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
   Input,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Textarea
 } from "@lunex-ui/react";
 import {
@@ -285,6 +298,81 @@ export function ThemePreview() {
                 </CardHeader>
               </Card>
             </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Dialog</p>
+              <p className="text-sm text-muted-foreground">
+                Modal surfaces for focused actions, confirmations, and short
+                workflows.
+              </p>
+            </div>
+            <Dialog>
+              <DialogTrigger>
+                <Button>Open dialog</Button>
+              </DialogTrigger>
+              <DialogOverlay />
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Share workspace</DialogTitle>
+                  <DialogDescription>
+                    Invite collaborators and keep the latest Lunex iteration
+                    moving.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="mt-4 grid gap-3">
+                  <Input placeholder="teammate@email.com" />
+                  <Textarea
+                    size="sm"
+                    defaultValue="Adding you to the active Lunex workspace review."
+                  />
+                </div>
+                <DialogFooter>
+                  <DialogClose>
+                    <Button variant="ghost">Cancel</Button>
+                  </DialogClose>
+                  <DialogClose>
+                    <Button>Send invite</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Tabs</p>
+              <p className="text-sm text-muted-foreground">
+                Structured views for settings, analytics, and grouped content.
+              </p>
+            </div>
+            <Tabs defaultValue="overview">
+              <TabsList>
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="tokens">Tokens</TabsTrigger>
+                <TabsTrigger value="usage">Usage</TabsTrigger>
+              </TabsList>
+              <TabsContent value="overview">
+                <p className="text-sm text-muted-foreground">
+                  Lunex is building theme-first primitives that adapt cleanly
+                  across color and radius presets.
+                </p>
+              </TabsContent>
+              <TabsContent value="tokens">
+                <div className="flex flex-wrap gap-2">
+                  <Badge>Brand</Badge>
+                  <Badge variant="surface">Surface</Badge>
+                  <Badge variant="outline">Border</Badge>
+                </div>
+              </TabsContent>
+              <TabsContent value="usage">
+                <p className="text-sm text-muted-foreground">
+                  Use Tabs when users need to switch between related views
+                  without leaving the current page context.
+                </p>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
 

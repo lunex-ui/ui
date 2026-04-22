@@ -10,7 +10,19 @@ export {
   cardVariants,
   type CardProps
 } from "./components/card";
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger
+} from "./components/dialog";
 export { Input, inputWrapperVariants, type InputProps } from "./components/input";
+export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
 export {
   Textarea,
   textareaVariants,
