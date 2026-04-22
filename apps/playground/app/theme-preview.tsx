@@ -21,6 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
   Input,
+  Select,
   Tabs,
   TabsContent,
   TabsList,
@@ -200,6 +201,40 @@ export function ThemePreview() {
               <Input disabled placeholder="Disabled input" />
               <Input size="sm" placeholder="Small input" />
               <Input size="lg" placeholder="Large input" />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Select states</p>
+              <p className="text-sm text-muted-foreground">
+                Foundational select field styles under the same token and state
+                system as Lunex inputs.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Select placeholder="Choose a theme role">
+                <option value="brand">Brand</option>
+                <option value="surface">Surface</option>
+                <option value="field">Field</option>
+              </Select>
+              <Select
+                variant="surface"
+                startContent={<span aria-hidden="true">@</span>}
+                defaultValue="workspace"
+              >
+                <option value="workspace">Workspace</option>
+                <option value="billing">Billing</option>
+                <option value="notifications">Notifications</option>
+              </Select>
+              <Select invalid defaultValue="danger">
+                <option value="success">Success</option>
+                <option value="warning">Warning</option>
+                <option value="danger">Danger</option>
+              </Select>
+              <Select disabled defaultValue="disabled">
+                <option value="disabled">Disabled select</option>
+              </Select>
             </div>
           </div>
 
