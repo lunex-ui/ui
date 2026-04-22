@@ -46,7 +46,7 @@ const buttonVariants = cva(
         variant: ["default", "secondary", "destructive", "surface", "outline"],
         className: "data-[loading=true]:cursor-wait"
       }
-    },
+    ],
     defaultVariants: {
       variant: "default",
       size: "md"
