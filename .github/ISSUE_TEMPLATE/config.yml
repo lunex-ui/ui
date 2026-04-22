@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Lunex UI Discussions
+    url: https://github.com/lunex-ui/ui/discussions
+    about: Use Discussions for open-ended ideas, roadmap conversation, and early API exploration.
