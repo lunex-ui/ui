@@ -1,0 +1,48 @@
+name: Feature request
+description: Suggest an improvement to Lunex UI.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for improvements to existing behavior, DX, theming, tooling, or documentation.
+
+        For entirely new components, please prefer the component proposal template.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What problem are you trying to solve?
+      placeholder: It is hard to understand how Lunex wants contributors to structure new component branches.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the improvement you want to see.
+      placeholder: Add a documented branch strategy and phase alignment guide.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional, but helpful if you evaluated other approaches.
+      placeholder: We could keep branch strategy informal, but it may create confusion for outside contributors.
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Related phase
+      options:
+        - Phase 0 - Foundation and positioning
+        - Phase 1 - Theme core
+        - Phase 2 - Component standards
+        - Phase 3 - Core components
+        - Phase 4 - Docs and showcase
+        - Phase 5 - Quality and releases
+        - Not sure
+    validations:
+      required: true

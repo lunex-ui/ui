@@ -1,0 +1,64 @@
+name: Bug report
+description: Report a bug in Lunex UI packages, docs, or playground behavior.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Lunex UI.
+
+        Please keep bug reports focused and include a minimal reproduction when possible.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is going wrong?
+      placeholder: The Button does not apply the expected focus ring in the black preset.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the smallest set of steps needed to reproduce the problem.
+      placeholder: |
+        1. Start the playground
+        2. Switch to the black color preset
+        3. Tab to the Button component
+        4. Observe the focus styling
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: The focus ring should remain clearly visible across presets.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: The focus ring blends into the surrounding surface.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - React package
+        - Tailwind config
+        - Playground
+        - Documentation
+        - Build or tooling
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Add any relevant versions, browser details, OS details, or screenshots.
+      placeholder: pnpm version, browser, OS, screenshots, or extra notes

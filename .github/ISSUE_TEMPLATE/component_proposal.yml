@@ -1,0 +1,57 @@
+name: Component proposal
+description: Propose a new component or a significant expansion of an existing component.
+title: "[Component]: "
+labels:
+  - component
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Lunex UI is shipping components gradually.
+
+        Please describe why this component belongs in the library and how it fits the current roadmap.
+  - type: input
+    id: component_name
+    attributes:
+      label: Component name
+      placeholder: Button, Dialog, Tabs
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this component solve?
+      placeholder: Teams need a consistent overlay primitive for confirmations and focused workflows.
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API shape
+      description: Share a rough API or usage example.
+      placeholder: |
+        <Dialog>
+          <DialogTrigger />
+          <DialogContent />
+        </Dialog>
+    validations:
+      required: true
+  - type: textarea
+    id: states
+    attributes:
+      label: Required states and accessibility concerns
+      description: List the states, interactions, and a11y expectations this component would need.
+      placeholder: keyboard support, focus trap, open/close states, disabled triggers
+    validations:
+      required: true
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Best-fit phase
+      options:
+        - Phase 2 - Component standards
+        - Phase 3 - Core components
+        - Phase 4 - Docs and showcase
+        - Not sure
+    validations:
+      required: true
