@@ -10,10 +10,15 @@ import {
   type ActivePresetState,
   type PresetCategory
 } from "./theme-presets";
+import { validatePresetConfig, validateResolvedTheme } from "./theme-validation";
 
 export function ThemePreview() {
   const [activePresets, setActivePresets] =
     useState<ActivePresetState>(defaultPresetState);
+  const [validationIssues, setValidationIssues] = useState<string[]>([]);
+  const [missingThemeVariables, setMissingThemeVariables] = useState<string[]>(
+    []
+  );
 
   useEffect(() => {
     const root = document.documentElement;
@@ -31,6 +36,25 @@ export function ThemePreview() {
         delete root.dataset[config.datasetKey];
       }
     };
+  }, [activePresets]);
+
+  useEffect(() => {
+    const configIssues = validatePresetConfig();
+    const { missingVariables } = validateResolvedTheme(document.documentElement);
+    const nextIssues = [...configIssues];
+
+    if (missingVariables.length > 0) {
+      nextIssues.push(
+        `Missing resolved theme variables: ${missingVariables.join(", ")}`
+      );
+    }
+
+    setMissingThemeVariables(missingVariables);
+    setValidationIssues(nextIssues);
+
+    if (process.env.NODE_ENV !== "production" && nextIssues.length > 0) {
+      console.warn("[Lunex UI] Theme validation issues detected:", nextIssues);
+    }
   }, [activePresets]);
 
   function setPreset<TCategory extends PresetCategory>(
@@ -135,6 +159,22 @@ export function ThemePreview() {
               <p className="mt-2 text-lg font-medium">
                 Branded UI, faster
               </p>
+            </div>
+            <div className="rounded-2xl bg-white/5 p-4">
+              <p className="text-sm text-white/60">Theme validation</p>
+              <p className="mt-2 text-lg font-medium">
+                {validationIssues.length === 0 ? "Healthy" : "Needs attention"}
+              </p>
+              <p className="mt-1 text-sm text-white/60">
+                {validationIssues.length === 0
+                  ? "Preset config and required theme variables are resolving correctly."
+                  : `${validationIssues.length} issue(s) detected in the current theme setup.`}
+              </p>
+              {missingThemeVariables.length > 0 ? (
+                <p className="mt-2 text-xs text-white/50">
+                  Missing: {missingThemeVariables.join(", ")}
+                </p>
+              ) : null}
             </div>
           </div>
         </div>
