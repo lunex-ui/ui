@@ -149,6 +149,7 @@ export function ThemePreview() {
                 Save changes
               </Button>
               <Button disabled>Disabled</Button>
+              <Button selected>Selected</Button>
             </div>
           </div>
         </div>
