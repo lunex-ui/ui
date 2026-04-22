@@ -5,6 +5,7 @@ export {
   checkboxVariants,
   type CheckboxProps
 } from "./components/checkbox";
+export { Code, codeVariants, type CodeProps } from "./components/code";
 export {
   Card,
   CardContent,
@@ -39,6 +40,20 @@ export {
   type SelectProps
 } from "./components/select";
 export { Slider, sliderVariants, type SliderProps } from "./components/slider";
+export {
+  Stepper,
+  StepperContent,
+  StepperDescription,
+  StepperIndicator,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  stepperIndicatorVariants,
+  stepperItemVariants,
+  stepperVariants,
+  type StepperItemProps,
+  type StepperProps
+} from "./components/stepper";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
 export {
   Textarea,

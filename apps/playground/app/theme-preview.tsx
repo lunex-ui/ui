@@ -21,11 +21,19 @@ import {
   DialogTitle,
   DialogTrigger,
   Checkbox,
+  Code,
   Input,
   Label,
   OtpInput,
   Select,
   Slider,
+  Stepper,
+  StepperContent,
+  StepperDescription,
+  StepperIndicator,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
   Tabs,
   TabsContent,
   TabsList,
@@ -395,6 +403,69 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Stepper</p>
+              <p className="text-sm text-muted-foreground">
+                Guided multi-step progress for onboarding, checkout, and setup flows.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              <Stepper currentStep={2}>
+                <StepperItem step={1}>
+                  <div className="flex gap-3">
+                    <StepperIndicator step={1} />
+                    <StepperContent>
+                      <StepperTitle>Create workspace</StepperTitle>
+                      <StepperDescription>
+                        Name the workspace and choose the initial theme preset.
+                      </StepperDescription>
+                    </StepperContent>
+                  </div>
+                  <StepperSeparator />
+                </StepperItem>
+                <StepperItem step={2}>
+                  <div className="flex gap-3">
+                    <StepperIndicator step={2} />
+                    <StepperContent>
+                      <StepperTitle>Invite the team</StepperTitle>
+                      <StepperDescription>
+                        Add collaborators and assign the first review flow.
+                      </StepperDescription>
+                    </StepperContent>
+                  </div>
+                  <StepperSeparator />
+                </StepperItem>
+                <StepperItem step={3}>
+                  <div className="flex gap-3">
+                    <StepperIndicator step={3} />
+                    <StepperContent>
+                      <StepperTitle>Ship the first screen</StepperTitle>
+                      <StepperDescription>
+                        Publish the branded preview and collect product feedback.
+                      </StepperDescription>
+                    </StepperContent>
+                  </div>
+                </StepperItem>
+              </Stepper>
+              <Card variant="surface" padding="sm">
+                <CardHeader>
+                  <CardTitle>Current workflow</CardTitle>
+                  <CardDescription>
+                    Stepper can pair with cards for setup and onboarding summaries.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Badge variant="success">Step 2 active</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    The active step can anchor nearby actions, status chips, or
+                    supporting content.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">
                 Textarea states
               </p>
@@ -429,6 +500,28 @@ export function ThemePreview() {
               <Badge variant="success">Success</Badge>
               <Badge variant="warning">Warning</Badge>
               <Badge variant="danger">Danger</Badge>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Code</p>
+              <p className="text-sm text-muted-foreground">
+                Inline and block snippets for commands, tokens, and developer-facing UI.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Install the package with <Code>pnpm add @lunex-ui/react</Code> and
+                import <Code>@lunex-ui/react/styles.css</Code> in your app shell.
+              </p>
+              <Code variant="block">
+                {`import { Button } from "@lunex-ui/react";
+
+export function App() {
+  return <Button>Launch Lunex</Button>;
+}`}
+              </Code>
             </div>
           </div>
 
