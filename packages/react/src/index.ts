@@ -49,6 +49,15 @@ export {
   DialogTrigger
 } from "./components/dialog";
 export {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  type DropdownMenuProps
+} from "./components/dropdown-menu";
+export {
   EmptyState,
   EmptyStateActions,
   EmptyStateDescription,
@@ -87,10 +96,19 @@ export {
   type ProgressProps
 } from "./components/progress";
 export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  type AccordionProps,
+  type AccordionItemProps
+} from "./components/accordion";
+export {
   Select,
   selectWrapperVariants,
   type SelectProps
 } from "./components/select";
+export { Separator, separatorVariants, type SeparatorProps } from "./components/separator";
 export { Skeleton, skeletonVariants, type SkeletonProps } from "./components/skeleton";
 export { Spinner, spinnerVariants, type SpinnerProps } from "./components/spinner";
 export {
@@ -123,6 +141,16 @@ export {
   type StepperProps
 } from "./components/stepper";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "./components/table";
 export {
   Textarea,
   textareaVariants,
