@@ -23,7 +23,9 @@ import {
   Checkbox,
   Input,
   Label,
+  OtpInput,
   Select,
+  Slider,
   Tabs,
   TabsContent,
   TabsList,
@@ -289,6 +291,42 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">OTP input</p>
+              <p className="text-sm text-muted-foreground">
+                Multi-slot verification input for auth, device confirmation, and
+                short one-time codes.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="otp-default">Default code</Label>
+                <OtpInput id="otp-default" defaultValue="2814" length={6} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="otp-invalid" required>
+                  Recovery code
+                </Label>
+                <OtpInput id="otp-invalid" invalid defaultValue="12" length={6} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="otp-alpha">Alphanumeric</Label>
+                <OtpInput
+                  id="otp-alpha"
+                  numeric={false}
+                  defaultValue="LX29"
+                  length={4}
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="otp-disabled">Disabled</Label>
+                <OtpInput id="otp-disabled" disabled defaultValue="908317" length={6} />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Select states</p>
               <p className="text-sm text-muted-foreground">
                 Foundational select field styles under the same token and state
@@ -318,6 +356,40 @@ export function ThemePreview() {
               <Select disabled defaultValue="disabled">
                 <option value="disabled">Disabled select</option>
               </Select>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Slider</p>
+              <p className="text-sm text-muted-foreground">
+                Range input for thresholds, density controls, and preference tuning.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="slider-default">Spacing scale</Label>
+                <Slider id="slider-default" defaultValue={32} showValue />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="slider-compact">Compact density</Label>
+                <Slider id="slider-compact" size="sm" min={0} max={10} defaultValue={3} showValue />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="slider-invalid">Out-of-policy threshold</Label>
+                <Slider
+                  id="slider-invalid"
+                  invalid
+                  min={0}
+                  max={100}
+                  defaultValue={85}
+                  showValue
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="slider-disabled">Disabled control</Label>
+                <Slider id="slider-disabled" size="lg" defaultValue={60} disabled showValue />
+              </div>
             </div>
           </div>
 
