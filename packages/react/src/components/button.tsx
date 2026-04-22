@@ -3,7 +3,11 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import {
+  ControlAdornment,
+  ControlContent,
+  ControlSpinner,
   controlSizeClasses,
+  getControlStateAttributes,
   getButtonType,
   interactiveControlBaseClass,
   type AsChildProps
@@ -61,15 +65,6 @@ export interface ButtonProps
   selected?: boolean;
 }
 
-function ButtonSpinner() {
-  return (
-    <span
-      aria-hidden="true"
-      className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-    />
-  );
-}
-
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -90,36 +85,25 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const Comp = asChild ? Slot : "button";
-    const resolvedDisabled = disabled || loading;
     const content = loading && loadingText ? loadingText : children;
+    const stateAttributes = getControlStateAttributes(asChild, {
+      disabled,
+      loading,
+      selected
+    });
 
     return (
       <Comp
         ref={ref}
         className={cn(buttonVariants({ variant, size }), className)}
-        disabled={resolvedDisabled}
-        aria-disabled={resolvedDisabled}
-        aria-busy={loading || undefined}
-        aria-pressed={!asChild ? selected : undefined}
-        data-loading={loading ? "true" : undefined}
-        data-selected={selected ? "true" : undefined}
         type={getButtonType(asChild, type)}
+        {...stateAttributes}
         {...props}
       >
-        {loading ? <ButtonSpinner /> : null}
-        {!loading && startContent ? (
-          <span className="inline-flex shrink-0 items-center">
-            {startContent}
-          </span>
-        ) : null}
-        {content ? (
-          <span className="inline-flex items-center">{content}</span>
-        ) : null}
-        {!loading && endContent ? (
-          <span className="inline-flex shrink-0 items-center">
-            {endContent}
-          </span>
-        ) : null}
+        {loading ? <ControlSpinner /> : null}
+        {!loading ? <ControlAdornment>{startContent}</ControlAdornment> : null}
+        <ControlContent>{content}</ControlContent>
+        {!loading ? <ControlAdornment>{endContent}</ControlAdornment> : null}
       </Comp>
     );
   }
