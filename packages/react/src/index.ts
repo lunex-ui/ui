@@ -1,6 +1,11 @@
 export { Button, buttonVariants, type ButtonProps } from "./components/button";
 export { Badge, badgeVariants, type BadgeProps } from "./components/badge";
 export {
+  Checkbox,
+  checkboxVariants,
+  type CheckboxProps
+} from "./components/checkbox";
+export {
   Card,
   CardContent,
   CardDescription,
@@ -22,6 +27,7 @@ export {
   DialogTrigger
 } from "./components/dialog";
 export { Input, inputWrapperVariants, type InputProps } from "./components/input";
+export { Label, labelVariants, type LabelProps } from "./components/label";
 export {
   Select,
   selectWrapperVariants,
