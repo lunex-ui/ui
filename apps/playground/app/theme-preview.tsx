@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   Alert,
   AlertDescription,
   AlertTitle,
@@ -25,6 +29,12 @@ import {
   DialogOverlay,
   DialogTitle,
   DialogTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   Checkbox,
   Combobox,
   Code,
@@ -47,6 +57,7 @@ import {
   RadioGroup,
   RadioGroupItem,
   Select,
+  Separator,
   Skeleton,
   Slider,
   Spinner,
@@ -58,6 +69,13 @@ import {
   StepperItem,
   StepperSeparator,
   StepperTitle,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
   Tabs,
   TabsContent,
   TabsList,
@@ -745,6 +763,30 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Dropdown menu</p>
+              <p className="text-sm text-muted-foreground">
+                Anchored action lists for row menus, profile controls, and compact command groups.
+              </p>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline">Open menu</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Workspace actions</DropdownMenuLabel>
+                <DropdownMenuItem>Open preview</DropdownMenuItem>
+                <DropdownMenuItem>Duplicate theme</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Invite reviewers</DropdownMenuItem>
+                <DropdownMenuItem className="text-danger hover:bg-danger/10">
+                  Archive workspace
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Tooltip</p>
               <p className="text-sm text-muted-foreground">
                 Quick hover and focus guidance for compact actions and dense UI.
@@ -808,6 +850,32 @@ export function ThemePreview() {
             <div className="grid gap-4 md:grid-cols-2">
               <Progress value={48} showValue />
               <Progress value={82} variant="success" size="lg" showValue />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Separator</p>
+              <p className="text-sm text-muted-foreground">
+                Subtle dividers for menus, cards, settings sections, and dense content layouts.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border p-4">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm text-foreground">Theme</span>
+                <span className="text-sm text-muted-foreground">Aurora</span>
+              </div>
+              <Separator className="my-4" />
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm text-foreground">Radius</span>
+                <span className="text-sm text-muted-foreground">Soft</span>
+              </div>
+              <Separator className="my-4" />
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-foreground">Mode</span>
+                <Separator orientation="vertical" className="h-4" />
+                <span className="text-sm text-muted-foreground">Preview</span>
+              </div>
             </div>
           </div>
 
@@ -878,6 +946,52 @@ export function ThemePreview() {
                 </Button>
               </EmptyStateActions>
             </EmptyState>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Table</p>
+              <p className="text-sm text-muted-foreground">
+                Structured data display for release history, tokens, reviewers, and admin surfaces.
+              </p>
+            </div>
+            <Table>
+              <TableCaption>Recent preview releases for the active workspace.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Release</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Branch</TableHead>
+                  <TableHead className="text-right">Reviewers</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">v0.3.0-alpha</TableCell>
+                  <TableCell>
+                    <Badge variant="success">Live</Badge>
+                  </TableCell>
+                  <TableCell>v3/core-components</TableCell>
+                  <TableCell className="text-right">4</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">v0.2.9</TableCell>
+                  <TableCell>
+                    <Badge variant="surface">Preview</Badge>
+                  </TableCell>
+                  <TableCell>main</TableCell>
+                  <TableCell className="text-right">2</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">v0.2.8</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">Archived</Badge>
+                  </TableCell>
+                  <TableCell>release/0.2</TableCell>
+                  <TableCell className="text-right">1</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </div>
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
@@ -998,6 +1112,38 @@ export function App() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Accordion</p>
+              <p className="text-sm text-muted-foreground">
+                Expandable sections for docs, settings panels, FAQs, and token reference groups.
+              </p>
+            </div>
+            <Accordion defaultValue="tokens">
+              <AccordionItem value="tokens">
+                <AccordionTrigger>How do Lunex tokens work?</AccordionTrigger>
+                <AccordionContent>
+                  Lunex uses semantic tokens first, then maps components onto those roles so themes
+                  can shift the whole product feel without rewriting component styles.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="components">
+                <AccordionTrigger>What ships in the React package?</AccordionTrigger>
+                <AccordionContent>
+                  Core primitives, form controls, feedback surfaces, overlays, and layout helpers
+                  all live in the same package with shared theme tokens.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="roadmap">
+                <AccordionTrigger>What is the next focus area?</AccordionTrigger>
+                <AccordionContent>
+                  The next milestones are richer navigation/data-display pieces plus accessibility
+                  and quality hardening across the current component set.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
