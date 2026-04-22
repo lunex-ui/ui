@@ -20,7 +20,9 @@ import {
   DialogOverlay,
   DialogTitle,
   DialogTrigger,
+  Checkbox,
   Input,
+  Label,
   Select,
   Tabs,
   TabsContent,
@@ -175,6 +177,87 @@ export function ThemePreview() {
               </Button>
               <Button disabled>Disabled</Button>
               <Button selected>Selected</Button>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Labels</p>
+              <p className="text-sm text-muted-foreground">
+                Lightweight form labels that stay consistent with Lunex field
+                sizing and required states.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="playground-email" required>
+                  Email address
+                </Label>
+                <Input
+                  id="playground-email"
+                  placeholder="name@lunex.dev"
+                  startContent={<span aria-hidden="true">@</span>}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="playground-team" size="lg">
+                  Team name
+                </Label>
+                <Input id="playground-team" placeholder="Lunex Core" />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Checkboxes</p>
+              <p className="text-sm text-muted-foreground">
+                Foundational selection controls for forms, filters, and
+                workspace preferences.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Checkbox id="checkbox-launch" defaultChecked />
+                <span className="space-y-1">
+                  <Label htmlFor="checkbox-launch">Launch checklist</Label>
+                  <span className="block text-sm text-muted-foreground">
+                    Include this task in the current release review.
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Checkbox id="checkbox-terms" invalid />
+                <span className="space-y-1">
+                  <Label htmlFor="checkbox-terms" required>
+                    Terms confirmation
+                  </Label>
+                  <span className="block text-sm text-muted-foreground">
+                    This invalid state helps surface required consent.
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Checkbox id="checkbox-compact" size="sm" />
+                <span className="space-y-1">
+                  <Label htmlFor="checkbox-compact" size="sm">
+                    Compact option
+                  </Label>
+                  <span className="block text-sm text-muted-foreground">
+                    Smaller controls for dense filter lists.
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Checkbox id="checkbox-disabled" size="lg" disabled defaultChecked />
+                <span className="space-y-1">
+                  <Label htmlFor="checkbox-disabled">Disabled selection</Label>
+                  <span className="block text-sm text-muted-foreground">
+                    Preserves the checked state while indicating it cannot
+                    change.
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
 
