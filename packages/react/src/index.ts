@@ -6,6 +6,13 @@ export {
   alertVariants,
   type AlertProps
 } from "./components/alert";
+export {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  avatarVariants,
+  type AvatarProps
+} from "./components/avatar";
 export { Badge, badgeVariants, type BadgeProps } from "./components/badge";
 export {
   Checkbox,
@@ -65,6 +72,15 @@ export {
   type OtpInputProps
 } from "./components/otp-input";
 export {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+  type PopoverProps
+} from "./components/popover";
+export {
   Progress,
   progressIndicatorVariants,
   progressTrackVariants,
@@ -77,6 +93,12 @@ export {
 } from "./components/select";
 export { Skeleton, skeletonVariants, type SkeletonProps } from "./components/skeleton";
 export { Spinner, spinnerVariants, type SpinnerProps } from "./components/spinner";
+export {
+  Switch,
+  switchThumbVariants,
+  switchTrackVariants,
+  type SwitchProps
+} from "./components/switch";
 export {
   RadioGroup,
   RadioGroupItem,
@@ -114,5 +136,11 @@ export {
   toastVariants,
   type ToastProps
 } from "./components/toast";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  type TooltipProps
+} from "./components/tooltip";
 export { type AsChildProps, type ControlSize } from "./lib/component";
 export { cn } from "./lib/utils";

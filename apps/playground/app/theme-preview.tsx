@@ -6,6 +6,8 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  Avatar,
+  AvatarFallback,
   Badge,
   Button,
   Card,
@@ -35,6 +37,12 @@ import {
   Input,
   Label,
   OtpInput,
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
   Progress,
   RadioGroup,
   RadioGroupItem,
@@ -42,6 +50,7 @@ import {
   Skeleton,
   Slider,
   Spinner,
+  Switch,
   Stepper,
   StepperContent,
   StepperDescription,
@@ -53,12 +62,14 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  Textarea
-  ,
+  Textarea,
   Toast,
   ToastAction,
   ToastDescription,
-  ToastTitle
+  ToastTitle,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
 } from "@lunex-ui/react";
 import {
   defaultPresetState,
@@ -311,6 +322,37 @@ export function ThemePreview() {
                   <span className="block text-sm text-muted-foreground">
                     Preserves the checked state while indicating it cannot
                     change.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Switches</p>
+              <p className="text-sm text-muted-foreground">
+                Toggle controls for settings, feature flags, and quick preference changes.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Switch id="switch-live" defaultChecked />
+                <span className="space-y-1">
+                  <Label htmlFor="switch-live">Live preview</Label>
+                  <span className="block text-sm text-muted-foreground">
+                    Update the playground instantly while tokens change.
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-start gap-3 rounded-md border border-border p-4">
+                <Switch id="switch-alerts" invalid />
+                <span className="space-y-1">
+                  <Label htmlFor="switch-alerts" required>
+                    Release alerts
+                  </Label>
+                  <span className="block text-sm text-muted-foreground">
+                    This invalid state shows a required toggle before publishing.
                   </span>
                 </span>
               </div>
@@ -627,6 +669,35 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Avatar</p>
+              <p className="text-sm text-muted-foreground">
+                Compact identity primitive for teams, comments, reviews, and presence lists.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <Avatar size="sm">
+                <AvatarFallback>LU</AvatarFallback>
+              </Avatar>
+              <Avatar>
+                <AvatarFallback>KT</AvatarFallback>
+              </Avatar>
+              <Avatar size="lg">
+                <AvatarFallback>UI</AvatarFallback>
+              </Avatar>
+              <div className="flex items-center gap-3 rounded-md border border-border px-4 py-3">
+                <Avatar>
+                  <AvatarFallback>LN</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-medium text-foreground">Lunex Team</p>
+                  <p className="text-sm text-muted-foreground">4 active reviewers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Alerts</p>
               <p className="text-sm text-muted-foreground">
                 Inline feedback for success, warning, and error states inside the page flow.
@@ -670,6 +741,61 @@ export function ThemePreview() {
                 </ToastDescription>
               </Toast>
             </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Tooltip</p>
+              <p className="text-sm text-muted-foreground">
+                Quick hover and focus guidance for compact actions and dense UI.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button size="sm" variant="outline">
+                    Hover me
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Explain a small action without taking over the layout.
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button size="icon" aria-label="Help" variant="ghost">
+                    ?
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Contextual help</TooltipContent>
+              </Tooltip>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Popover</p>
+              <p className="text-sm text-muted-foreground">
+                Richer anchored surface for contextual settings, notes, and compact workflows.
+              </p>
+            </div>
+            <Popover>
+              <PopoverTrigger>
+                <Button variant="secondary">Open popover</Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverHeader>
+                  <PopoverTitle>Quick workspace note</PopoverTitle>
+                  <PopoverDescription>
+                    Capture short feedback without opening a full dialog.
+                  </PopoverDescription>
+                </PopoverHeader>
+                <div className="mt-4 grid gap-3">
+                  <Input placeholder="Add a short note" />
+                  <Button size="sm">Save note</Button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
