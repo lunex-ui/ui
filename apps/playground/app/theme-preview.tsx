@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Badge,
   Button,
   Card,
@@ -21,12 +24,24 @@ import {
   DialogTitle,
   DialogTrigger,
   Checkbox,
+  Combobox,
   Code,
+  EmptyState,
+  EmptyStateActions,
+  EmptyStateDescription,
+  EmptyStateIcon,
+  EmptyStateTitle,
+  Field,
   Input,
   Label,
   OtpInput,
+  Progress,
+  RadioGroup,
+  RadioGroupItem,
   Select,
+  Skeleton,
   Slider,
+  Spinner,
   Stepper,
   StepperContent,
   StepperDescription,
@@ -39,6 +54,11 @@ import {
   TabsList,
   TabsTrigger,
   Textarea
+  ,
+  Toast,
+  ToastAction,
+  ToastDescription,
+  ToastTitle
 } from "@lunex-ui/react";
 import {
   defaultPresetState,
@@ -220,6 +240,32 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Field</p>
+              <p className="text-sm text-muted-foreground">
+                Composed form field wrapper for labels, descriptions, and validation copy.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field
+                htmlFor="field-workspace"
+                label="Workspace name"
+                description="This name appears in invites and project sharing."
+                required
+              >
+                <Input id="field-workspace" placeholder="Lunex Launch Team" />
+              </Field>
+              <Field
+                htmlFor="field-domain"
+                label="Verified domain"
+                error="This domain is already connected to another workspace."
+              >
+                <Input id="field-domain" invalid defaultValue="lunex-ui.dev" />
+              </Field>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Checkboxes</p>
               <p className="text-sm text-muted-foreground">
                 Foundational selection controls for forms, filters, and
@@ -273,6 +319,37 @@ export function ThemePreview() {
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
             <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Radio group</p>
+              <p className="text-sm text-muted-foreground">
+                Single-choice selection for plans, modes, and preference groups.
+              </p>
+            </div>
+            <RadioGroup name="plan" defaultValue="pro" orientation="horizontal">
+              <RadioGroupItem
+                value="starter"
+                label="Starter"
+                description="For individual experiments and early previews."
+              />
+              <RadioGroupItem
+                value="pro"
+                label="Pro"
+                description="For product teams building branded interfaces."
+              />
+              <RadioGroupItem
+                value="scale"
+                label="Scale"
+                description="For broader org rollout and shared design ownership."
+              />
+              <RadioGroupItem
+                value="enterprise"
+                label="Enterprise"
+                description="For governance, review workflows, and deeper support."
+              />
+            </RadioGroup>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Input states</p>
               <p className="text-sm text-muted-foreground">
                 Foundational field styles, invalid states, and adornments under
@@ -294,6 +371,51 @@ export function ThemePreview() {
               <Input disabled placeholder="Disabled input" />
               <Input size="sm" placeholder="Small input" />
               <Input size="lg" placeholder="Large input" />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Combobox</p>
+              <p className="text-sm text-muted-foreground">
+                Searchable text entry with suggestions for teams, presets, and workspace roles.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field
+                htmlFor="combobox-team"
+                label="Team"
+                description="Search existing teams or enter a new name."
+              >
+                <Combobox
+                  id="combobox-team"
+                  placeholder="Search a team"
+                  options={[
+                    { label: "Core UI", value: "Core UI" },
+                    { label: "Design Systems", value: "Design Systems" },
+                    { label: "Growth", value: "Growth" },
+                    { label: "Platform", value: "Platform" }
+                  ]}
+                />
+              </Field>
+              <Field
+                htmlFor="combobox-role"
+                label="Theme role"
+                error="Choose one of the approved semantic roles."
+              >
+                <Combobox
+                  id="combobox-role"
+                  invalid
+                  defaultValue="Dangerous"
+                  options={[
+                    { label: "Brand", value: "brand" },
+                    { label: "Surface", value: "surface" },
+                    { label: "Field", value: "field" },
+                    { label: "Success", value: "success" }
+                  ]}
+                  startContent={<span aria-hidden="true">@</span>}
+                />
+              </Field>
             </div>
           </div>
 
@@ -501,6 +623,135 @@ export function ThemePreview() {
               <Badge variant="warning">Warning</Badge>
               <Badge variant="danger">Danger</Badge>
             </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Alerts</p>
+              <p className="text-sm text-muted-foreground">
+                Inline feedback for success, warning, and error states inside the page flow.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Alert>
+                <AlertTitle>Workspace updated</AlertTitle>
+                <AlertDescription>
+                  Your theme tokens were saved and published to the preview environment.
+                </AlertDescription>
+              </Alert>
+              <Alert variant="danger">
+                <AlertTitle>Publish blocked</AlertTitle>
+                <AlertDescription>
+                  One or more required semantic tokens are still missing values.
+                </AlertDescription>
+              </Alert>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Toasts</p>
+              <p className="text-sm text-muted-foreground">
+                Lightweight transient feedback surfaces for actions that finish in the background.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Toast>
+                <ToastTitle>Changes synced</ToastTitle>
+                <ToastDescription>
+                  The latest Lunex branch is now available in the shared preview.
+                </ToastDescription>
+                <ToastAction>View build</ToastAction>
+              </Toast>
+              <Toast variant="success">
+                <ToastTitle>Invite sent</ToastTitle>
+                <ToastDescription>
+                  Three collaborators were added to the workspace review.
+                </ToastDescription>
+              </Toast>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Progress</p>
+              <p className="text-sm text-muted-foreground">
+                Progress indicators for uploads, onboarding, releases, and long-running tasks.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Progress value={48} showValue />
+              <Progress value={82} variant="success" size="lg" showValue />
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Skeleton</p>
+              <p className="text-sm text-muted-foreground">
+                Placeholder shapes for loading cards, lists, and content blocks.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card padding="sm">
+                <CardHeader className="space-y-3">
+                  <Skeleton variant="circle" className="h-10 w-10" />
+                  <Skeleton className="h-4 w-40" />
+                  <Skeleton className="h-4 w-28" />
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-5/6" />
+                  <Skeleton className="h-24 w-full" />
+                </CardContent>
+              </Card>
+              <div className="space-y-3 rounded-lg border border-border p-4">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-2/3" />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Spinner</p>
+              <p className="text-sm text-muted-foreground">
+                Small loading indicator for buttons, cards, overlays, and fetch states.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <Spinner size="sm" />
+              <Spinner size="md" />
+              <Spinner size="lg" />
+              <div className="inline-flex items-center gap-2 rounded-md bg-foreground px-3 py-2 text-background">
+                <Spinner variant="inverse" />
+                <span className="text-sm">Publishing</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-lg border border-border bg-background p-6">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Empty state</p>
+              <p className="text-sm text-muted-foreground">
+                Clear fallback UI for empty lists, dashboards, search results, and first-run flows.
+              </p>
+            </div>
+            <EmptyState>
+              <EmptyStateIcon>+</EmptyStateIcon>
+              <EmptyStateTitle>No releases yet</EmptyStateTitle>
+              <EmptyStateDescription>
+                Start your first Lunex release to track feedback, publish previews, and share changes.
+              </EmptyStateDescription>
+              <EmptyStateActions>
+                <Button size="sm">Create release</Button>
+                <Button size="sm" variant="ghost">
+                  Learn more
+                </Button>
+              </EmptyStateActions>
+            </EmptyState>
           </div>
 
           <div className="space-y-4 rounded-lg border border-border bg-background p-6">
