@@ -17,6 +17,12 @@ export const controlSizeClasses = {
 
 export type ControlSize = keyof typeof controlSizeClasses;
 
+export interface ControlStateProps {
+  disabled?: boolean;
+  loading?: boolean;
+  selected?: boolean;
+}
+
 export function getButtonType(
   asChild: boolean | undefined,
   type: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
@@ -26,4 +32,53 @@ export function getButtonType(
   }
 
   return type ?? "button";
+}
+
+export function getControlStateAttributes(
+  asChild: boolean | undefined,
+  { disabled, loading, selected }: ControlStateProps
+) {
+  const resolvedDisabled = disabled || loading;
+
+  return {
+    disabled: resolvedDisabled,
+    "aria-disabled": resolvedDisabled || undefined,
+    "aria-busy": loading || undefined,
+    "aria-pressed": !asChild ? selected || undefined : undefined,
+    "data-loading": loading ? "true" : undefined,
+    "data-selected": selected ? "true" : undefined
+  };
+}
+
+export function ControlSpinner() {
+  return (
+    <span
+      aria-hidden="true"
+      className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+    />
+  );
+}
+
+export function ControlAdornment({
+  children
+}: {
+  children?: React.ReactNode;
+}) {
+  if (!children) {
+    return null;
+  }
+
+  return <span className="inline-flex shrink-0 items-center">{children}</span>;
+}
+
+export function ControlContent({
+  children
+}: {
+  children?: React.ReactNode;
+}) {
+  if (!children) {
+    return null;
+  }
+
+  return <span className="inline-flex items-center">{children}</span>;
 }
