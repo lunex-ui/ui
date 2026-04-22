@@ -48,6 +48,8 @@ Good first contribution areas:
 - docs and examples
 - bug fixes and DX improvements
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for branch strategy, PR expectations, and the recommended contribution flow.
+
 ## Contributors
 
 Lunex UI is open to contributors of all levels.
