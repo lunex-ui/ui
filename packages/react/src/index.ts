@@ -13,7 +13,21 @@ export {
   avatarVariants,
   type AvatarProps
 } from "./components/avatar";
+export {
+  AvatarGroup,
+  AvatarGroupCount,
+  avatarGroupVariants,
+  type AvatarGroupProps
+} from "./components/avatar-group";
 export { Badge, badgeVariants, type BadgeProps } from "./components/badge";
+export {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "./components/breadcrumb";
 export {
   Checkbox,
   checkboxVariants,
@@ -96,6 +110,18 @@ export {
   PopoverTrigger,
   type PopoverProps
 } from "./components/popover";
+export { Kbd, kbdVariants, type KbdProps } from "./components/kbd";
+export {
+  Pagination,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  paginationLinkVariants,
+  PaginationList,
+  PaginationNext,
+  PaginationPrevious,
+  type PaginationLinkProps
+} from "./components/pagination";
 export {
   Progress,
   progressIndicatorVariants,
@@ -154,6 +180,15 @@ export {
   type StepperItemProps,
   type StepperProps
 } from "./components/stepper";
+export {
+  Stat,
+  StatDescription,
+  StatLabel,
+  StatTrend,
+  StatValue,
+  statVariants,
+  type StatProps
+} from "./components/stat";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs";
 export {
   Table,

@@ -1,6 +1,8 @@
 import {
   Avatar,
   AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
   Badge,
   Button,
   Card,
@@ -10,7 +12,13 @@ import {
   CardHeader,
   CardTitle,
   Code,
+  Kbd,
   Separator,
+  Stat,
+  StatDescription,
+  StatLabel,
+  StatTrend,
+  StatValue,
   Table,
   TableBody,
   TableCaption,
@@ -26,21 +34,56 @@ export function DataDemo() {
   return (
     <>
       <ShowcaseSection
-        title="Badges, avatars, and separators"
-        description="Small primitives for metadata, identity, and section structure."
+        title="Badges, avatars, keyboard, and separators"
+        description="Small primitives for metadata, identity, shortcuts, and section structure."
       >
-        <div className="flex flex-wrap items-center gap-3">
-          <Badge>Default</Badge>
-          <Badge variant="success">Success</Badge>
-          <Badge variant="warning">Warning</Badge>
-          <Badge variant="danger">Danger</Badge>
-          <Separator orientation="vertical" className="h-6" />
-          <Avatar>
-            <AvatarFallback>LN</AvatarFallback>
-          </Avatar>
-          <Avatar size="lg">
-            <AvatarFallback>UI</AvatarFallback>
-          </Avatar>
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge>Default</Badge>
+            <Badge variant="success">Success</Badge>
+            <Badge variant="warning">Warning</Badge>
+            <Badge variant="danger">Danger</Badge>
+            <Separator orientation="vertical" className="h-6" />
+            <Kbd>Ctrl</Kbd>
+            <Kbd>K</Kbd>
+          </div>
+          <AvatarGroup>
+            <Avatar>
+              <AvatarFallback>LN</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>UI</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>KT</AvatarFallback>
+            </Avatar>
+            <AvatarGroupCount>+4</AvatarGroupCount>
+          </AvatarGroup>
+        </div>
+      </ShowcaseSection>
+
+      <ShowcaseSection
+        title="Stats"
+        description="Dashboard metric cards for product analytics, usage, and release health."
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          <Stat>
+            <StatLabel>Components</StatLabel>
+            <StatValue>42</StatValue>
+            <StatDescription>
+              <StatTrend>+8 this week</StatTrend>
+            </StatDescription>
+          </Stat>
+          <Stat variant="surface">
+            <StatLabel>Preview installs</StatLabel>
+            <StatValue>1.8k</StatValue>
+            <StatDescription>Across internal test apps</StatDescription>
+          </Stat>
+          <Stat variant="brand">
+            <StatLabel>Theme health</StatLabel>
+            <StatValue>98%</StatValue>
+            <StatDescription>Semantic tokens resolving</StatDescription>
+          </Stat>
         </div>
       </ShowcaseSection>
 
