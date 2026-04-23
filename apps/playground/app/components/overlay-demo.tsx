@@ -11,9 +11,16 @@ import {
   DialogTrigger,
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuDescription,
+  DropdownMenuFooter,
+  DropdownMenuGroup,
+  DropdownMenuHeader,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuLink,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTitle,
   DropdownMenuTrigger,
   Input,
   Popover,
@@ -42,14 +49,35 @@ export function OverlayDemo() {
             <DropdownMenuTrigger>
               <Button variant="outline">Open menu</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Workspace actions</DropdownMenuLabel>
-              <DropdownMenuItem>Open preview</DropdownMenuItem>
-              <DropdownMenuItem>Duplicate theme</DropdownMenuItem>
+            <DropdownMenuContent className="min-w-64">
+              <DropdownMenuHeader>
+                <DropdownMenuTitle>Workspace</DropdownMenuTitle>
+                <DropdownMenuDescription>
+                  Manage preview actions and review flow.
+                </DropdownMenuDescription>
+              </DropdownMenuHeader>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-danger hover:bg-danger/10">
-                Archive workspace
-              </DropdownMenuItem>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem>
+                  Open preview
+                  <DropdownMenuShortcut>OP</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  Duplicate theme
+                  <DropdownMenuShortcut>DT</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuLink href="https://github.com/lunex-ui/ui">
+                  View repository
+                  <DropdownMenuShortcut>GH</DropdownMenuShortcut>
+                </DropdownMenuLink>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuFooter>
+                <DropdownMenuItem className="text-danger hover:bg-danger/10">
+                  Archive workspace
+                </DropdownMenuItem>
+              </DropdownMenuFooter>
             </DropdownMenuContent>
           </DropdownMenu>
 

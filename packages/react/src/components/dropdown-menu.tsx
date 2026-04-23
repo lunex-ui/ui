@@ -121,6 +121,39 @@ function DropdownMenuLabel({
   );
 }
 
+function DropdownMenuHeader({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("px-2 py-2", className)} {...props} />;
+}
+
+function DropdownMenuTitle({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3
+      className={cn("text-sm font-semibold leading-none text-foreground", className)}
+      {...props}
+    />
+  );
+}
+
+function DropdownMenuDescription({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <p className={cn("mt-1 text-xs text-muted-foreground", className)} {...props} />;
+}
+
+function DropdownMenuGroup({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("py-1", className)} {...props} />;
+}
+
 function DropdownMenuItem({
   className,
   inset = false,
@@ -149,6 +182,45 @@ function DropdownMenuItem({
   );
 }
 
+function DropdownMenuLink({
+  className,
+  inset = false,
+  onClick,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & { inset?: boolean }) {
+  const { setOpen } = useDropdownMenuContext();
+
+  return (
+    <a
+      role="menuitem"
+      className={cn(
+        "flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+        inset ? "pl-8" : "",
+        className
+      )}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) {
+          setOpen(false);
+        }
+      }}
+      {...props}
+    />
+  );
+}
+
+function DropdownMenuShortcut({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      className={cn("ml-auto pl-4 text-xs tracking-widest text-muted-foreground", className)}
+      {...props}
+    />
+  );
+}
+
 function DropdownMenuSeparator({
   className,
   ...props
@@ -156,11 +228,25 @@ function DropdownMenuSeparator({
   return <div className={cn("my-1 h-px w-full bg-border", className)} {...props} />;
 }
 
+function DropdownMenuFooter({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("px-2 py-2", className)} {...props} />;
+}
+
 export {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuDescription,
+  DropdownMenuFooter,
+  DropdownMenuGroup,
+  DropdownMenuHeader,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuLink,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTitle,
   DropdownMenuTrigger
 };
