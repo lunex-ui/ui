@@ -1,18 +1,18 @@
 import * as React from "react";
-import { createPortal } from "react-dom";
 
+import {
+  getAnchoredPosition,
+  OverlayPortal,
+  type OverlayContextValue,
+  type OverlaySide,
+  useAnchorSync,
+  useControllableOpen,
+  useEscapeDismiss,
+  useOutsidePointerDown
+} from "../lib/overlay";
 import { cn } from "../lib/utils";
 
-type DropdownMenuSide = "top" | "right" | "bottom" | "left";
-
-interface DropdownMenuContextValue {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  triggerRect: DOMRect | null;
-  setTriggerRect: (rect: DOMRect | null) => void;
-}
-
-const DropdownMenuContext = React.createContext<DropdownMenuContextValue | null>(null);
+const DropdownMenuContext = React.createContext<OverlayContextValue | null>(null);
 
 function useDropdownMenuContext() {
   const context = React.useContext(DropdownMenuContext);
@@ -37,39 +37,14 @@ function DropdownMenu({
   onOpenChange,
   open
 }: DropdownMenuProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const [triggerRect, setTriggerRect] = React.useState<DOMRect | null>(null);
-  const isControlled = open !== undefined;
-  const resolvedOpen = isControlled ? open : uncontrolledOpen;
+  const [resolvedOpen, setOpen] = useControllableOpen({
+    defaultOpen,
+    onOpenChange,
+    open
+  });
 
-  const setOpen = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-
-      onOpenChange?.(nextOpen);
-    },
-    [isControlled, onOpenChange]
-  );
-
-  React.useEffect(() => {
-    if (!resolvedOpen) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [resolvedOpen, setOpen]);
+  useEscapeDismiss(resolvedOpen, () => setOpen(false));
 
   return (
     <DropdownMenuContext.Provider
@@ -80,20 +55,6 @@ function DropdownMenu({
   );
 }
 
-function DropdownMenuPortal({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  return createPortal(children, document.body);
-}
-
 function DropdownMenuTrigger({
   children
 }: {
@@ -101,28 +62,7 @@ function DropdownMenuTrigger({
 }) {
   const { open, setOpen, setTriggerRect } = useDropdownMenuContext();
   const triggerRef = React.useRef<HTMLSpanElement>(null);
-
-  const syncRect = React.useCallback(() => {
-    setTriggerRect(triggerRef.current?.getBoundingClientRect() ?? null);
-  }, [setTriggerRect]);
-
-  React.useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    syncRect();
-
-    const handleLayout = () => syncRect();
-
-    window.addEventListener("resize", handleLayout);
-    window.addEventListener("scroll", handleLayout, true);
-
-    return () => {
-      window.removeEventListener("resize", handleLayout);
-      window.removeEventListener("scroll", handleLayout, true);
-    };
-  }, [open, syncRect]);
+  const syncRect = useAnchorSync(open, triggerRef, setTriggerRect);
 
   return (
     <span
@@ -138,77 +78,24 @@ function DropdownMenuTrigger({
   );
 }
 
-function getDropdownMenuPosition(rect: DOMRect, side: DropdownMenuSide) {
-  const gap = 8;
-
-  switch (side) {
-    case "top":
-      return {
-        left: rect.left + rect.width / 2,
-        top: rect.top - gap,
-        transform: "translate(-50%, -100%)"
-      };
-    case "left":
-      return {
-        left: rect.left - gap,
-        top: rect.top + rect.height / 2,
-        transform: "translate(-100%, -50%)"
-      };
-    case "right":
-      return {
-        left: rect.right + gap,
-        top: rect.top + rect.height / 2,
-        transform: "translateY(-50%)"
-      };
-    case "bottom":
-    default:
-      return {
-        left: rect.left + rect.width / 2,
-        top: rect.bottom + gap,
-        transform: "translateX(-50%)"
-      };
-  }
-}
-
 function DropdownMenuContent({
   children,
   className,
   side = "bottom",
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { side?: DropdownMenuSide }) {
+}: React.HTMLAttributes<HTMLDivElement> & { side?: OverlaySide }) {
   const { open, setOpen, triggerRect } = useDropdownMenuContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    const handlePointerDown = (event: MouseEvent) => {
-      const target = event.target as Node;
-
-      if (contentRef.current?.contains(target)) {
-        return;
-      }
-
-      setOpen(false);
-    };
-
-    window.addEventListener("mousedown", handlePointerDown);
-
-    return () => {
-      window.removeEventListener("mousedown", handlePointerDown);
-    };
-  }, [open, setOpen]);
+  useOutsidePointerDown(open, contentRef, () => setOpen(false));
 
   if (!open || !triggerRect) {
     return null;
   }
 
-  const position = getDropdownMenuPosition(triggerRect, side);
+  const position = getAnchoredPosition(triggerRect, side, 8);
 
   return (
-    <DropdownMenuPortal>
+    <OverlayPortal>
       <div
         ref={contentRef}
         role="menu"
@@ -221,7 +108,7 @@ function DropdownMenuContent({
       >
         {children}
       </div>
-    </DropdownMenuPortal>
+    </OverlayPortal>
   );
 }
 
