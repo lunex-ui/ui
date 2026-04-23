@@ -51,9 +51,16 @@ export {
 export {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuDescription,
+  DropdownMenuFooter,
+  DropdownMenuGroup,
+  DropdownMenuHeader,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuLink,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTitle,
   DropdownMenuTrigger,
   type DropdownMenuProps
 } from "./components/dropdown-menu";
@@ -125,7 +132,14 @@ export {
   type RadioGroupItemProps,
   type RadioGroupProps
 } from "./components/radio-group";
-export { Slider, sliderVariants, type SliderProps } from "./components/slider";
+export {
+  Slider,
+  sliderRangeVariants,
+  sliderRootVariants,
+  sliderThumbVariants,
+  sliderTrackVariants,
+  type SliderProps
+} from "./components/slider";
 export {
   Stepper,
   StepperContent,
