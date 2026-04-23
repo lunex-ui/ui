@@ -1,18 +1,16 @@
 import * as React from "react";
-import { createPortal } from "react-dom";
 
+import {
+  getAnchoredPosition,
+  OverlayPortal,
+  type OverlayContextValue,
+  type OverlaySide,
+  useAnchorSync,
+  useControllableOpen
+} from "../lib/overlay";
 import { cn } from "../lib/utils";
 
-type TooltipSide = "top" | "right" | "bottom" | "left";
-
-interface TooltipContextValue {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  triggerRect: DOMRect | null;
-  setTriggerRect: (rect: DOMRect | null) => void;
-}
-
-const TooltipContext = React.createContext<TooltipContextValue | null>(null);
+const TooltipContext = React.createContext<OverlayContextValue | null>(null);
 
 function useTooltipContext() {
   const context = React.useContext(TooltipContext);
@@ -37,21 +35,12 @@ function Tooltip({
   onOpenChange,
   open
 }: TooltipProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const [triggerRect, setTriggerRect] = React.useState<DOMRect | null>(null);
-  const isControlled = open !== undefined;
-  const resolvedOpen = isControlled ? open : uncontrolledOpen;
-
-  const setOpen = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-
-      onOpenChange?.(nextOpen);
-    },
-    [isControlled, onOpenChange]
-  );
+  const [resolvedOpen, setOpen] = useControllableOpen({
+    defaultOpen,
+    onOpenChange,
+    open
+  });
 
   return (
     <TooltipContext.Provider
@@ -62,20 +51,6 @@ function Tooltip({
   );
 }
 
-function TooltipPortal({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  return createPortal(children, document.body);
-}
-
 function TooltipTrigger({
   children
 }: {
@@ -83,10 +58,7 @@ function TooltipTrigger({
 }) {
   const { setOpen, setTriggerRect } = useTooltipContext();
   const triggerRef = React.useRef<HTMLSpanElement>(null);
-
-  const syncRect = React.useCallback(() => {
-    setTriggerRect(triggerRef.current?.getBoundingClientRect() ?? null);
-  }, [setTriggerRect]);
+  const syncRect = useAnchorSync(false, triggerRef, setTriggerRect);
 
   return (
     <span
@@ -108,54 +80,22 @@ function TooltipTrigger({
   );
 }
 
-function getTooltipPosition(rect: DOMRect, side: TooltipSide) {
-  const gap = 10;
-
-  switch (side) {
-    case "bottom":
-      return {
-        left: rect.left + rect.width / 2,
-        top: rect.bottom + gap,
-        transform: "translateX(-50%)"
-      };
-    case "left":
-      return {
-        left: rect.left - gap,
-        top: rect.top + rect.height / 2,
-        transform: "translate(-100%, -50%)"
-      };
-    case "right":
-      return {
-        left: rect.right + gap,
-        top: rect.top + rect.height / 2,
-        transform: "translateY(-50%)"
-      };
-    case "top":
-    default:
-      return {
-        left: rect.left + rect.width / 2,
-        top: rect.top - gap,
-        transform: "translate(-50%, -100%)"
-      };
-  }
-}
-
 function TooltipContent({
   children,
   className,
   side = "top",
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { side?: TooltipSide }) {
+}: React.HTMLAttributes<HTMLDivElement> & { side?: OverlaySide }) {
   const { open, triggerRect } = useTooltipContext();
 
   if (!open || !triggerRect) {
     return null;
   }
 
-  const position = getTooltipPosition(triggerRect, side);
+  const position = getAnchoredPosition(triggerRect, side, 10);
 
   return (
-    <TooltipPortal>
+    <OverlayPortal>
       <div
         role="tooltip"
         className={cn(
@@ -167,7 +107,7 @@ function TooltipContent({
       >
         {children}
       </div>
-    </TooltipPortal>
+    </OverlayPortal>
   );
 }
 
